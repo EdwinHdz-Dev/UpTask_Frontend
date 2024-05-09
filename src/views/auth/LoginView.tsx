@@ -30,7 +30,7 @@ export default function LoginView() {
 
     return (
         <>
-            <h1 className="text-5xl font-black text-white text-center">Iniciar Sesión</h1>
+            <h1 className="text-5xl font-black text-white text-center">Iniciar Sesión hijo de la verga</h1>
             <p className="text-2xl font-light text-white mt-5 text-center">
                 Comienza a planear tus proyectos {''}
                 <span className=" text-fuchsia-500 font-bold"> iniciando sesion en este formulario</span>
