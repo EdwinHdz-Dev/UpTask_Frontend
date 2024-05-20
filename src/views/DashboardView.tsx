@@ -7,9 +7,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from '@/hooks/useAuth'
 import { isManager } from '@/utils/policies'
 import DeleteProjectModal from '@/components/projects/DeleteProjectModal'
+import { calculateTheoreticalProgress, formatDates } from '@/utils/utils'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function DashboardView() {
-
     const location = useLocation()
     const navigate = useNavigate()
     const { data: user, isLoading: authLoading } = useAuth()
@@ -58,7 +60,29 @@ export default function DashboardView() {
                                     <p className="text-sm text-gray-400">
                                         {project.description}
                                     </p>
+                                    <p className="text-sm text-gray-400">
+                                        Fecha estimada de finalización: {formatDates(project.estimatedCompletionDate)}
+                                    </p>
+                                    <p className="text-sm text-gray-400">
+                                        Avance ideal: {Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate))}%
+                                    </p>
+                                    <p className="text-sm text-gray-400">
+                                        Fecha de Creacion: {formatDates(project.createdAt)}
+                                    </p>
                                 </div>
+                            </div>
+                            <div style={{ width: '150px', height: '150px' }}>
+                                <CircularProgressbar
+                                    value={Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate))}
+                                    text={Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate)) > 100 ? 'Tiempo terminado' : `${Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate))}%`}
+                                    styles={buildStyles({
+                                        // backgroundColor: "#3B82F6",
+                                        textSize: '10px',
+                                        textColor: Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate)) > 100 ? '#000000' : '#3B82F6',
+                                        pathColor: Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate)) > 100 ? 'rgb(220 38 38 / var(--tw-bg-opacity))' : '#3B82F6',
+                                        trailColor: ''
+                                    })}
+                                />
                             </div>
                             <div className="flex shrink-0 items-center gap-x-6">
                                 <Menu as="div" className="relative flex-none">

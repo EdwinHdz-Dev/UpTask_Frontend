@@ -7,7 +7,7 @@ type ProjectFormProps = {
     errors: FieldErrors<ProjectFormData>
 }
 
-export default function ProjectForm({errors, register} : ProjectFormProps) {
+export default function ProjectForm({ errors, register }: ProjectFormProps) {
     return (
         <>
             <div className="mb-5 space-y-3">
@@ -63,6 +63,28 @@ export default function ProjectForm({errors, register} : ProjectFormProps) {
 
                 {errors.description && (
                     <ErrorMessage>{errors.description.message}</ErrorMessage>
+                )}
+            </div>
+            <div className="mb-5 space-y-3">
+                <label htmlFor="estimatedCompletionDate" className="text-sm uppercase font-bold">
+                    Fecha Estimada de Finalización
+                </label>
+                <input
+                    id="estimatedCompletionDate"
+                    className="w-full p-3  border border-gray-200"
+                    type="date"
+                    placeholder="Fecha Estimada de Finalización"
+                    {...register("estimatedCompletionDate", {
+                        required: "La Fecha Estimada de Finalización es obligatoria",
+                        pattern: {
+                            value: /^\d{4}-\d{2}-\d{2}$/, // Validar el formato 'YYYY-MM-DD'
+                            message: "Ingrese una fecha válida en formato YYYY-MM-DD",
+                        },
+                    })}
+                />
+
+                {errors.estimatedCompletionDate && (
+                    <ErrorMessage>{errors.estimatedCompletionDate.message}</ErrorMessage>
                 )}
             </div>
         </>

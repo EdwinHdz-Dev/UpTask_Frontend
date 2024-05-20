@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { updateProject } from "@/api/ProjectAPI"
 import { toast } from "react-toastify"
+import { formatDateForInput } from "@/utils/utils"
 
 type EditProjectFormProps = {
     data: ProjectFormData
@@ -19,7 +20,8 @@ export default function EditProjectForm({ data, projectId }: EditProjectFormProp
         defaultValues: {
             projectName: data.projectName,
             clientName: data.clientName,
-            description: data.description
+            description: data.description,
+            estimatedCompletionDate: formatDateForInput(data.estimatedCompletionDate)
         }
     })
 

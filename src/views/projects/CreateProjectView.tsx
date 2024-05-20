@@ -13,7 +13,8 @@ export default function CreateProjectView() {
     const initialValues: ProjectFormData = {
         projectName: "",
         clientName: "",
-        description: ""
+        description: "",
+        estimatedCompletionDate: ""
     }
     const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues })
 
@@ -29,7 +30,11 @@ export default function CreateProjectView() {
     })
 
     const handleForm = (formData: ProjectFormData) => {
-        mutation.mutate(formData)
+        const formattedData = {
+            ...formData,
+            estimatedCompletionDate: new Date(formData.estimatedCompletionDate).toISOString(),
+        };
+        mutation.mutate(formattedData);
     }
 
     return (

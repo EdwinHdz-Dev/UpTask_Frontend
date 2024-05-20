@@ -85,10 +85,12 @@ export const projectSchema = z.object({
     projectName: z.string(),
     clientName: z.string(),
     description: z.string(),
-    manager: z.string(userSchema.pick({ _id: true, name: true})),
+    manager: z.string(userSchema.pick({ _id: true, name: true })),
     tasks: z.array(taskProjectSchema),
-    team: z.array(z.string(userSchema.pick({_id: true})))
-})
+    team: z.array(z.string(userSchema.pick({ _id: true }))),
+    estimatedCompletionDate: z.string(), // Nuevo campo para la fecha estimada
+    createdAt: z.string()
+});
 
 export const dashboardProjectSchema = z.array(
 
@@ -97,17 +99,20 @@ export const dashboardProjectSchema = z.array(
         projectName: true,
         clientName: true,
         description: true,
-        manager: true
+        estimatedCompletionDate: true,
+        manager: true,
+        createdAt: true
     })
 )
 
 export const editProjectSchema = projectSchema.pick({
     projectName: true,
     clientName: true,
-    description: true
+    description: true,
+    estimatedCompletionDate: true
 })
 export type Project = z.infer<typeof projectSchema>
-export type ProjectFormData = Pick<Project, 'clientName' | 'projectName' | 'description'>
+export type ProjectFormData = Pick<Project, 'clientName' | 'projectName' | 'description' | 'estimatedCompletionDate'>
 
 /** Team */
 const teamMemberSchema = userSchema.pick({
