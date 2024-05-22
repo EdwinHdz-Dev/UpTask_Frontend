@@ -64,9 +64,6 @@ export default function DashboardView() {
                                         Fecha estimada de finalización: {formatDates(project.estimatedCompletionDate)}
                                     </p>
                                     <p className="text-sm text-gray-400">
-                                        Avance ideal: {Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate))}%
-                                    </p>
-                                    <p className="text-sm text-gray-400">
                                         Fecha de Creacion: {formatDates(project.createdAt)}
                                     </p>
                                 </div>
