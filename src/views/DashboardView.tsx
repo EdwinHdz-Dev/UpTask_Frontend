@@ -68,7 +68,7 @@ export default function DashboardView() {
                                     </p>
                                 </div>
                             </div>
-                            <div className='mr-5' style={{ width: '150px', height: '150px' }}>
+                            <div style={{ width: '150px', height: '150px' }}>
                                 <CircularProgressbar
                                     value={Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate))}
                                     text={Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate)) > 100 ? 'Tiempo terminado' : `${Math.round(calculateTheoreticalProgress(project.createdAt, project.estimatedCompletionDate))}%`}
