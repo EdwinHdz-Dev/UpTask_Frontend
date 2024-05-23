@@ -31,8 +31,8 @@ export default function ProjectDetailsView() {
     if (data && user) {
         const completedTasksCount = data.tasks.filter(task => task.status === 'completed').length
         const tasksCount = data.tasks.length
-        const avance = (completedTasksCount * 100) / tasksCount
-        const estimatedCompletionDate = new Date(data.estimatedCompletionDate); // Suponiendo que data tiene esta propiedad
+        const avance = tasksCount === 0 ? 0 : (completedTasksCount * 100) / tasksCount
+        const estimatedCompletionDate = new Date(data.estimatedCompletionDate);
         const currentDate = new Date();
 
         let diferencia = 0;
@@ -48,10 +48,11 @@ export default function ProjectDetailsView() {
                 mensaje = 'El proyecto ha sido terminado en tiempo y forma';
             }
         } else {
-            diferencia = avance - Math.round(calculateTheoreticalProgress(data.createdAt, data.estimatedCompletionDate));
+            const theoreticalProgress = Math.round(calculateTheoreticalProgress(data.createdAt, data.estimatedCompletionDate));
+            diferencia = isNaN(theoreticalProgress) ? 0 : avance - theoreticalProgress;
             projectLate = diferencia < 0 && currentDate > estimatedCompletionDate;
             if (projectLate) {
-                mensaje = 'El proyecto no fue terminado a tiempo';
+                mensaje = 'El proyecto no va a ser terminado a tiempo';
             } else if (diferencia < 0) {
                 mensaje = 'El progreso del proyecto va lento';
             } else {
@@ -74,8 +75,8 @@ export default function ProjectDetailsView() {
                     </div>
                     <div className="mt-10 lg:mt-0 lg:mr-16" style={{ width: '150px', height: '150px' }}>
                         <CircularProgressbar
-                            value={avance}
-                            text={avance >= 100 ? 'Completado' : `${avance.toFixed(2)}%`}
+                            value={isNaN(avance) ? 0 : avance}
+                            text={avance >= 100 ? 'Completado' : `${isNaN(avance) ? 0 : avance.toFixed(2)}%`}
                             styles={buildStyles({
                                 textSize: '14px',
                                 textColor: avance >= 100 ? '#000000' : '#3B82F6',
