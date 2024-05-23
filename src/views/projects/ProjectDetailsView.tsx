@@ -35,7 +35,7 @@ export default function ProjectDetailsView() {
         const estimatedCompletionDate = new Date(data.estimatedCompletionDate); // Suponiendo que data tiene esta propiedad
         const currentDate = new Date();
 
-        let diferencia;
+        let diferencia = 0;
         let projectLate = false;
         let mensaje;
 
@@ -61,18 +61,18 @@ export default function ProjectDetailsView() {
 
         return (
             <>
-                <div className="flex justify-between items-start">
-                    <div>
-                        <h1 className="text-5xl font-black">{data.projectName}</h1>
-                        <p className="text-2xl font-light text-gray-500 mt-5">{data.description}</p>
-                        <p className="text-2xl font-light text-gray-500 mt-5">{formatDates(data.createdAt)}</p>
-                        <p className="text-2xl font-light text-gray-500 mt-5">Total de tareas asignadas: {tasksCount} tareas</p>
-                        <p className="text-2xl font-light text-gray-500 mt-5">Total de tareas completadas: {completedTasksCount} {completedTasksCount > 1 ? 'tareas' : 'tarea'}</p>
-                        <p className={`text-2xl font-light mt-5 ${diferencia >= 0 ? 'text-gray-800' : 'text-red-500'}`}>
+                <div className="flex flex-col lg:flex-row justify-between items-start p-4">
+                    <div className="flex-1">
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black">{data.projectName}</h1>
+                        <p className="text-lg md:text-xl lg:text-2xl font-light text-gray-500 mt-5">{data.description}</p>
+                        <p className="text-lg md:text-xl lg:text-2xl font-light text-gray-500 mt-5">{formatDates(data.createdAt)}</p>
+                        <p className="text-lg md:text-xl lg:text-2xl font-light text-gray-500 mt-5">Total de tareas asignadas: {tasksCount} tareas</p>
+                        <p className="text-lg md:text-xl lg:text-2xl font-light text-gray-500 mt-5">Total de tareas completadas: {completedTasksCount} {completedTasksCount > 1 ? 'tareas' : 'tarea'}</p>
+                        <p className={`text-lg md:text-xl lg:text-2xl font-light mt-5 ${diferencia >= 0 ? 'text-gray-800' : 'text-red-500'}`}>
                             {mensaje}
                         </p>
                     </div>
-                    <div className="mt-16 mr-60" style={{ width: '200px', height: '200px' }}>
+                    <div className="mt-10 lg:mt-0 lg:mr-16" style={{ width: '150px', height: '150px' }}>
                         <CircularProgressbar
                             value={avance}
                             text={avance >= 100 ? 'Completado' : `${avance.toFixed(2)}%`}
@@ -87,11 +87,10 @@ export default function ProjectDetailsView() {
                 </div>
 
                 {isManager(data.manager, user._id) && (
-                    <nav className="my-5 flex gap-3">
+                    <nav className="my-5 flex flex-col sm:flex-row gap-3 p-4">
                         <button
                             type="button"
-                            className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white text-xl 
-                            font-bold cursor-pointer transition-colors"
+                            className="bg-purple-400 hover:bg-purple-500 px-5 py-3 text-white text-lg md:text-xl font-bold cursor-pointer transition-colors"
                             onClick={() => navigate(location.pathname + '?newTask=true')}
                         >
                             Agregar Tarea
@@ -99,18 +98,19 @@ export default function ProjectDetailsView() {
 
                         <Link
                             to={'team'}
-                            className="bg-fuchsia-600 hover:bg-fuchsia-700 px-10 py-3 text-white text-xl 
-                            font-bold cursor-pointer transition-colors"
+                            className="bg-fuchsia-600 hover:bg-fuchsia-700 px-5 py-3 text-white text-lg md:text-xl font-bold cursor-pointer transition-colors"
                         >
                             Colaboradores
                         </Link>
                     </nav>
                 )}
 
-                <TaskList
-                    tasks={data.tasks}
-                    canEdit={canEdit}
-                />
+                <div className="p-4">
+                    <TaskList
+                        tasks={data.tasks}
+                        canEdit={canEdit}
+                    />
+                </div>
 
                 <AddTaskModal />
                 <EditTaskData />
