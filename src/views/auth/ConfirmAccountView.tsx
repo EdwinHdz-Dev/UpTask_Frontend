@@ -25,16 +25,20 @@ export default function ConfirmAccountView() {
     }
 
     const handleComplete = (token: ConfirmToken['token']) => {
-        mutate({token})
+        mutate({ token })
     }
 
     return (
         <>
-            <h1 className="text-5xl font-black text-white">Confirma tu Cuenta</h1>
-            <p className="text-2xl font-light text-white mt-5">
-                Ingresa el código que recibiste {''}
-                <span className=" text-fuchsia-500 font-bold"> por e-mail</span>
-            </p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white text-center">Confirma tu Cuenta</h1>
+            <div className="text-center mt-5">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-white">
+                    Ingresa el código que recibiste
+                </p>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-fuchsia-500 font-bold mt-2 sm:mt-0">
+                    por e-mail
+                </p>
+            </div>
             <form
                 className="space-y-8 p-10 bg-white mt-10"
             >

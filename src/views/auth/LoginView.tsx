@@ -40,7 +40,6 @@ export default function LoginView() {
                         iniciando sesión en este formulario
                     </p>
                 </div>
-
                 <form
                     onSubmit={handleSubmit(handleLogin)}
                     className="space-y-8 p-5 sm:p-10 bg-white mt-10 rounded-lg shadow-lg w-full max-w-md"

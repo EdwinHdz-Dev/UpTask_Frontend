@@ -28,11 +28,15 @@ export default function ForgotPasswordView() {
 
     return (
         <>
-            <h1 className="text-5xl font-black text-white text-center">Reestablecer Password</h1>
-            <p className="text-2xl font-light text-white mt-5 text-center">
-                ¿Olvidaste tu password? Coloca tu email {''}
-                <span className=" text-fuchsia-500 font-bold"> y reestablece tu password</span>
-            </p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white text-center">Reestablecer Password</h1>
+            <div className="text-center mt-5">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-white">
+                    ¿Olvidaste tu password? Coloca tu email
+                </p>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-fuchsia-500 font-bold mt-2 sm:mt-0">
+                    y reestablece tu password
+                </p>
+            </div>
             <form
                 onSubmit={handleSubmit(handleForgotPassword)}
                 className="space-y-8 p-10  bg-white mt-10"

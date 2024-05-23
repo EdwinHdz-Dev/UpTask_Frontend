@@ -13,7 +13,7 @@ export default function RegisterView() {
 
     const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-    const {mutate} = useMutation({
+    const { mutate } = useMutation({
         mutationFn: requestConfirmationCode,
         onError: (error) => {
             toast.error(error.message)
@@ -27,11 +27,15 @@ export default function RegisterView() {
 
     return (
         <>
-            <h1 className="text-5xl font-black text-white">Solicitar Código de Confirmación</h1>
-            <p className="text-2xl font-light text-white mt-5">
-                Coloca tu e-mail para recibir {''}
-                <span className=" text-fuchsia-500 font-bold"> un nuevo código</span>
-            </p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white text-center">Solicitar Código de Confirmación</h1>
+            <div className="text-center mt-5">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light text-white">
+                    Coloca tu e-mail para recibir
+                </p>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-fuchsia-500 font-bold mt-2 sm:mt-0">
+                    un nuevo código
+                </p>
+            </div>
 
             <form
                 onSubmit={handleSubmit(handleRequestCode)}
