@@ -1,9 +1,9 @@
-export function formatDate(isoString: string) : string{
+export function formatDate(isoString: string): string {
     const date = new Date(isoString)
     const formatter = new Intl.DateTimeFormat('es-ES', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric' 
+        day: 'numeric'
     })
     return formatter.format(date)
 }
@@ -38,7 +38,7 @@ function getMonthName(month: number): string {
 }
 
 
-export function calculateTheoreticalProgress(createdAt : string, estimatedCompletionDate : string) {
+export function calculateTheoreticalProgress(createdAt: string, estimatedCompletionDate: string) {
     const currentDate = new Date();
     const createdAtDate = new Date(createdAt);
     const estimatedCompletionDateDate = new Date(estimatedCompletionDate);
@@ -48,6 +48,11 @@ export function calculateTheoreticalProgress(createdAt : string, estimatedComple
 
     // Calcular el porcentaje de avance
     const theoreticalProgress = (elapsedTime / totalProjectDuration) * 100;
+
+    // Si la fecha actual es posterior a la fecha estimada de finalización, devolver un valor mayor a 100
+    if (currentDate > estimatedCompletionDateDate) {
+        return 110; // Valor indicativo de que el tiempo ha terminado
+    }
 
     return theoreticalProgress;
 }
