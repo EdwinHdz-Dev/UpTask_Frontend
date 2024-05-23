@@ -32,28 +32,26 @@ export default function ProjectDetailsView() {
         const completedTasksCount = data.tasks.filter(task => task.status === 'completed').length
         const tasksCount = data.tasks.length
         const avance = (completedTasksCount * 100) / tasksCount
-        const estimatedCompletionDate = new Date(data.estimatedCompletionDate);
+        const estimatedCompletionDate = new Date(data.estimatedCompletionDate); // Suponiendo que data tiene esta propiedad
         const currentDate = new Date();
 
-        let diferencia = 0;  // Inicializar diferencia
+        let diferencia;
         let projectLate = false;
         let mensaje;
 
-        // Calcular el progreso teórico
-        const theoreticalProgress = Math.round(calculateTheoreticalProgress(data.createdAt, data.estimatedCompletionDate));
-
-        // Determinar si el proyecto está completo
+        // Si el proyecto está completo, calcular diferencia sólo una vez
         if (avance === 100) {
+            diferencia = 100 - Math.round(calculateTheoreticalProgress(data.createdAt, data.estimatedCompletionDate));
             if (currentDate > estimatedCompletionDate) {
                 mensaje = 'El proyecto no fue terminado a tiempo';
             } else {
                 mensaje = 'El proyecto ha sido terminado en tiempo y forma';
             }
         } else {
-            diferencia = avance - theoreticalProgress;
+            diferencia = avance - Math.round(calculateTheoreticalProgress(data.createdAt, data.estimatedCompletionDate));
             projectLate = diferencia < 0 && currentDate > estimatedCompletionDate;
             if (projectLate) {
-                mensaje = 'El proyecto no va a ser terminado a tiempo';
+                mensaje = 'El proyecto no fue terminado a tiempo';
             } else if (diferencia < 0) {
                 mensaje = 'El progreso del proyecto va lento';
             } else {
